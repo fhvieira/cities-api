@@ -1,7 +1,9 @@
 package com.dio.citiesapi.state;
 
+import com.dio.citiesapi.countries.Country;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Data;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -15,10 +17,10 @@ import java.util.List;
     @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @Table(name = "estado")
-public class Estado {
+public class State {
 
     @Id
-    private Long Id;
+    private Long id;
 
     @Column(name = "nome")
     private String name;
@@ -27,10 +29,16 @@ public class Estado {
 
     private Integer ibge;
 
+    @Column(name = "pais")
     private Integer countryId;
 
     @Type(type = "jsonb")
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "ddd", columnDefinition = "jsonb")
     private List<Integer> ddd;
+
+//    @ManyToOne
+//    @JoinColumn(name = "pais", referencedColumnName = "id")
+//    private Country country;
+
 }
